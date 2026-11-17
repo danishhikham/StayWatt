@@ -19,6 +19,15 @@ Akun contoh: `rani@staywatt.local` / `rani12345` (pengguna), `admin@staywatt.loc
 
 Ekstensi PHP yang dipakai: `pdo_mysql`, `mbstring` (keduanya aktif di XAMPP).
 
+## Deploy ke Railway
+
+1. Buat service aplikasi dari repository ini. Railway akan mendeteksi `Dockerfile` di root repo dan membangun image PHP 8.3.
+2. Tambahkan service **MySQL** di project/environment Railway yang sama, lalu pastikan variabel `MYSQLHOST`, `MYSQLPORT`, `MYSQLUSER`, `MYSQLPASSWORD`, dan `MYSQLDATABASE` tersedia untuk service aplikasi. Koneksi aplikasi menerima variabel tersebut langsung; variabel `DB_*` lokal yang sudah ada tetap didukung dan, jika disetel di Railway, memiliki prioritas.
+3. Jalankan `php scripts/init-db.php` sekali dari shell service aplikasi setelah MySQL aktif. Ini membuat tabel pada database `MYSQLDATABASE` tanpa mencoba membuat database baru.
+4. Buat domain publik dari **Settings → Networking**. Server membaca `PORT` dari Railway dan bind ke `0.0.0.0`.
+
+`php seed.php` hanya untuk database kosong yang memang ingin diisi data contoh. Skrip itu mengosongkan tabel sebelum mengisi ulang, jadi jangan jadikan perintah start atau deploy berulang.
+
 ## Struktur singkat
 - `public/index.php`: pintu masuk web; `server.php`: sesi, tema, CSRF, routing, galat (pengganti `server.js`).
 - `routes/`: `auth.php`, `app.php`, `admin.php`.

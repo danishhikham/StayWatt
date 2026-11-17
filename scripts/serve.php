@@ -1,8 +1,9 @@
 <?php
-// Menjalankan server bawaan PHP di 127.0.0.1:PORT (default 3000), setara `npm start` versi Node.
+// Menjalankan server bawaan PHP agar dapat diakses dari Railway dan jaringan lokal.
 require __DIR__ . '/../lib/env.php';
 loadEnv(dirname(__DIR__) . '/.env');
 $port = (int)env('PORT', 3000);
 $root = dirname(__DIR__);
-echo "StayWatt berjalan di http://localhost:$port\n";
-passthru(escapeshellarg(PHP_BINARY) . " -S 127.0.0.1:$port -t " . escapeshellarg("$root/public") . ' ' . escapeshellarg("$root/public/index.php"));
+$host = '0.0.0.0';
+echo "StayWatt berjalan di http://$host:$port\n";
+passthru(escapeshellarg(PHP_BINARY) . " -S $host:$port -t " . escapeshellarg("$root/public") . ' ' . escapeshellarg("$root/public/index.php"));

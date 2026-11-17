@@ -3,8 +3,14 @@ function db(): PDO
 {
     static $pdo = null;
     if ($pdo === null) {
-        $dsn = sprintf('mysql:host=%s;port=%d;dbname=%s;charset=utf8mb4', env('DB_HOST', '127.0.0.1'), (int)env('DB_PORT', 3306), env('DB_NAME', 'staywatt'));
-        $pdo = new PDO($dsn, env('DB_USER', 'root'), env('DB_PASSWORD', ''), [
+        // DB_* wins for existing installations; Railway's MYSQL* variables are fallbacks.
+        $host = env('DB_HOST', env('MYSQLHOST', '127.0.0.1'));
+        $port = (int)env('DB_PORT', env('MYSQLPORT', 3306));
+        $name = env('DB_NAME', env('MYSQLDATABASE', 'staywatt'));
+        $user = env('DB_USER', env('MYSQLUSER', 'root'));
+        $pass = env('DB_PASSWORD', env('MYSQLPASSWORD', ''));
+        $dsn = sprintf('mysql:host=%s;port=%d;dbname=%s;charset=utf8mb4', $host, $port, $name);
+        $pdo = new PDO($dsn, $user, $pass, [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             PDO::ATTR_EMULATE_PREPARES => false,
