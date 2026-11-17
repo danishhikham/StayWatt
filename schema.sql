@@ -1,0 +1,59 @@
+CREATE DATABASE IF NOT EXISTS staywatt CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE staywatt;
+
+CREATE TABLE IF NOT EXISTS users (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  nama VARCHAR(100) NOT NULL,
+  email VARCHAR(150) NOT NULL UNIQUE,
+  password_hash VARCHAR(100) NOT NULL,
+  role ENUM('pengguna','admin') NOT NULL DEFAULT 'pengguna'
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS kategori_peralatan (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  nama VARCHAR(60) NOT NULL
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS referensi_peralatan (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  kategori_id INT UNSIGNED NOT NULL,
+  nama VARCHAR(100) NOT NULL,
+  daya_default_w INT UNSIGNED NOT NULL,
+  FOREIGN KEY (kategori_id) REFERENCES kategori_peralatan(id)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS peralatan (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  user_id INT UNSIGNED NOT NULL,
+  kategori_id INT UNSIGNED NOT NULL,
+  nama VARCHAR(100) NOT NULL,
+  daya_w INT UNSIGNED NOT NULL,
+  jumlah INT UNSIGNED NOT NULL DEFAULT 1,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (kategori_id) REFERENCES kategori_peralatan(id)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS pemakaian (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  peralatan_id INT UNSIGNED NOT NULL,
+  tanggal DATE NOT NULL,
+  durasi_jam DECIMAL(9,6) NOT NULL,
+  INDEX idx_pemakaian_peralatan_tanggal (peralatan_id, tanggal),
+  FOREIGN KEY (peralatan_id) REFERENCES peralatan(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS rekomendasi_aturan (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  kategori_id INT UNSIGNED NOT NULL,
+  kondisi VARCHAR(255) NOT NULL,
+  saran VARCHAR(500) NOT NULL,
+  FOREIGN KEY (kategori_id) REFERENCES kategori_peralatan(id)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS konfigurasi_emisi_tarif (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  faktor_emisi DECIMAL(8,4) NOT NULL,
+  tarif_per_kwh DECIMAL(12,2) NOT NULL,
+  sumber VARCHAR(255) NOT NULL,
+  berlaku_mulai DATE NOT NULL
+) ENGINE=InnoDB;

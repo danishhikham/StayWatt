@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Jalankan StayWatt (server PHP + debug)",
+      "type": "php",
+      "request": "launch",
+      "runtimeExecutable": "php",
+      "runtimeArgs": ["-S", "127.0.0.1:3000", "-t", "public", "public/index.php"],
+      "program": "",
+      "cwd": "${workspaceFolder}",
+      "port": 9003,
+      "serverReadyAction": { "pattern": "Development Server \\(http://127.0.0.1:3000\\) started", "uriFormat": "http://localhost:3000", "action": "openExternally" }
+    },
+    { "name": "Listen for Xdebug (Apache XAMPP)", "type": "php", "request": "launch", "port": 9003 }
+  ]
+}

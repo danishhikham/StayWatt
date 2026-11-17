@@ -1,0 +1,6 @@
+Options -MultiViews -Indexes
+RewriteEngine On
+# Berkas statis (css, js, vendor) disajikan langsung; selain itu masuk ke index.php.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [L]

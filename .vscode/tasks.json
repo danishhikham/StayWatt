@@ -1,0 +1,28 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "1. Salin .env",
+      "type": "shell",
+      "command": "cp -n .env.example .env",
+      "windows": { "command": "if not exist .env copy .env.example .env" },
+      "problemMatcher": []
+    },
+    { "label": "2. Buat database", "type": "shell", "command": "php scripts/init-db.php", "problemMatcher": [] },
+    { "label": "3. Isi data contoh (seed)", "type": "shell", "command": "php seed.php", "problemMatcher": [] },
+    {
+      "label": "Setup lengkap (.env + database + seed)",
+      "dependsOrder": "sequence",
+      "dependsOn": ["1. Salin .env", "2. Buat database", "3. Isi data contoh (seed)"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Jalankan StayWatt",
+      "type": "shell",
+      "command": "php scripts/serve.php",
+      "isBackground": true,
+      "problemMatcher": [],
+      "group": { "kind": "build", "isDefault": true }
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+<form method="post" action="<?= e(u('/tema')) ?>"><?php partial('csrf'); ?><button type="submit" class="menu-item"><?= icon($tema === 'terang' ? 'moon' : 'sun', 16) ?><?= $tema === 'terang' ? 'Tema gelap' : 'Tema terang' ?></button></form>

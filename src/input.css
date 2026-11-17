@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Desain token: didefinisikan sekali di sini, dipakai lewat tailwind.config.js */
+:root {
+  --bg: #15171A; --surface: #1C1F23; --surface2: #23272C; --line: rgba(255,255,255,0.06);
+  --ink: #ECEAE4; --ink2: #8D9399; --ink3: #5F656B;
+  --accent: #9DBF9E; --accent-dim: #2A3A2F; --on-accent: #15171A;
+  --bad: #D99A86; --err: #D98B8B; --scrim: rgba(0,0,0,0.6);
+  color-scheme: dark;
+}
+.light {
+  --bg: #F4F2ED; --surface: #FBFAF7; --surface2: #EFECE5; --line: #E3DFD6;
+  --ink: #1F2326; --ink2: #6B7176; --ink3: #9A9FA4;
+  --accent: #4F7A5A; --accent-dim: #DCE8DC; --on-accent: #FBFAF7;
+  --bad: #B8624A; --err: #B85A5A; --scrim: rgba(0,0,0,0.35);
+  color-scheme: light;
+}
+
+@layer base {
+  body { @apply bg-bg text-ink text-[14px] leading-normal antialiased; }
+  summary { list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  option { background: var(--surface); color: var(--ink); }
+  input[type=number] { -moz-appearance: textfield; appearance: textfield; }
+  input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+}
+
+@layer components {
+  .btn { @apply inline-flex items-center justify-center gap-2 h-10 px-4 rounded-ctl text-[14px] font-semibold transition cursor-pointer whitespace-nowrap; }
+  .btn-utama { @apply btn bg-accent text-on-accent hover:opacity-90; }
+  .btn-sekunder { @apply btn bg-surface text-ink border border-line hover:bg-surface2; }
+  .input { @apply w-full h-10 rounded-ctl bg-surface2 px-3 text-ink placeholder:text-ink3 outline-none focus:outline focus:outline-1 focus:outline-accent; }
+  .label { @apply block text-[12px] text-ink2 mb-1.5; }
+  .pesan-err { @apply text-[12px] text-err mt-1.5; }
+  .chip { @apply inline-flex items-center rounded-chip bg-accent-dim text-accent px-2 py-[3px] text-[12px] font-medium; }
+  .judul-halaman { @apply text-[24px] font-semibold leading-tight; }
+  .eyebrow { @apply text-[12px] text-ink2; }
+  .judul-kartu { @apply text-[15px] font-semibold; }
+  .nav-item { @apply relative flex items-center gap-3 h-10 px-3 rounded-ctl text-ink2 hover:text-ink transition-colors; }
+  .nav-item[aria-current=page] { @apply bg-surface2 text-ink; }
+  .menu-item { @apply flex w-full items-center gap-2 h-9 px-2 rounded-chip text-ink text-left hover:bg-surface transition-colors cursor-pointer; }
+  .tbl { @apply w-full border-collapse; }
+  .tbl th { @apply text-[12px] font-normal text-ink2 text-left px-4 py-3 border-b border-line; }
+  .tbl td { @apply px-4 py-5 align-middle; }
+  .tbl tbody tr + tr td { @apply border-t border-line; }
+  .tbl .kanan { @apply text-right tabular-nums; }
+}

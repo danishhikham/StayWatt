@@ -1,0 +1,1 @@
+document.addEventListener("click",a=>{const e=a.target.closest("[data-stepper]");if(!e)return;const t=e.closest("[data-stepper-wrap]").querySelector("input"),n=(parseFloat(t.value)||0)+Number(e.dataset.stepper);t.value=Math.round(Math.min(+t.max,Math.max(+t.min,n))*100)/100,t.dispatchEvent(new Event("input",{bubbles:!0}))});

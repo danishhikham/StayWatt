@@ -1,0 +1,7 @@
+# Untuk XAMPP/Apache bila folder proyek ditaruh di htdocs/staywatt: semua permintaan diarahkan ke public/.
+# Folder lib/, routes/, views/ dan berkas .env tidak pernah dapat diakses lewat URL.
+Options -Indexes
+RewriteEngine On
+RewriteRule ^$ public/ [L]
+RewriteCond %{REQUEST_URI} !(^|/)public/
+RewriteRule ^(.*)$ public/$1 [L]

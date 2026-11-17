@@ -1,0 +1,8 @@
+{
+  // Sesuaikan bila XAMPP tidak di C:\xampp
+  "php.validate.executablePath": "C:\\xampp\\php\\php.exe",
+  "php.debug.executablePath": "C:\\xampp\\php\\php.exe",
+  "terminal.integrated.env.windows": { "PATH": "C:\\xampp\\php;${env:PATH}" },
+  "tailwindCSS.includeLanguages": { "php": "html" },
+  "files.associations": { ".env.example": "properties" }
+}
